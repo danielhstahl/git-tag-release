@@ -1,0 +1,35 @@
+{
+  "name": "serverless-api-version",
+  "version": "1.0.0",
+  "description": "CLI tool for versioning APIs on AWS Lambda",
+  "main": "./bin/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillyfan1138/serverless-api-version.git"
+  },
+  "keywords": [
+    "serverless"
+  ],
+  "author": "Daniel Stahl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phillyfan1138/serverless-api-version/issues"
+  },
+  "homepage": "https://github.com/phillyfan1138/serverless-api-version#readme",
+  "dependencies": {
+    "es6-promisify": "^6.0.0",
+    "fs-extra": "^7.0.0",
+    "git-repo-name": "^0.6.0",
+    "git-username": "^1.0.0",
+    "js-yaml": "^3.12.0",
+    "request": "^2.87.0",
+    "unzip": "^0.1.11"
+  },
+  "bin": {
+    "serverless_api_version": "./bin/index.js"
+  },
+  "preferGlobal": true
+}
