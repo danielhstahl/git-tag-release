@@ -10,12 +10,25 @@ if(args.length<=2){
 else {
     let [, , choice]=args
     if(choice==='new'){
-        updateVersion()
+        updateVersion().then(()=>{
+            console.log("Update Complete")
+        }).catch(err=>{
+            console.log(`Update errored with ${err}`)
+        }).finally(()=>{
+            process.exit()
+        })
     }
     else if(choice==='replace'){
-        replace()
+        replace().then(()=>{
+            console.log("Replacement Complete")
+        }).catch(err=>{
+            console.log(`Replacement errored with ${err}`)
+        }).finally(()=>{
+            process.exit()
+        })
     }
     else {
         console.log(`Choice ${choice} is invalid!  Try "new" or "replace"`)
+        process.exit()
     }
 }

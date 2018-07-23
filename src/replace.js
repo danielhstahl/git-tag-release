@@ -1,6 +1,6 @@
 const readline = require('readline')
-const {promiseExec, getNewTagName, url}=require('./newVersion')
-const {httpOptions}=require('./mergeHandler')
+const {getNewTagName, url, httpOptions}=require('./urlOptions')
+const {promiseExec} =require('./execOptions')
 const request=require('request')
 const rl = readline.createInterface({
   input: process.stdin,
@@ -9,12 +9,20 @@ const rl = readline.createInterface({
 
 const getReleaseId=tagName=>new Promise((resolve, reject)=>{
   request(httpOptions(`${url}/tags/${tagName}`), (err, _, body)=>{
+
     if(err){
       reject(err)
     }
     else{
-      const {id}=JSON.parse(body)
-      resolve(id)
+      const v=JSON.parse(body)
+      if(v.message==='Not Found'||!v.id){
+        reject(v.message)
+      }
+      else {
+        const {id}=v
+        resolve(id)
+      }
+      
     }
   })
 })
@@ -30,7 +38,7 @@ const deleteRelease=releaseId=>new Promise((resolve, reject)=>{
     
   })
 })
-const replace=()=>{
+const replace=()=>new Promise((resolve, reject)=>{
   rl.question("This will replace the latest release.  Continue? (Y/N)", answer=>{
     if(answer==='Y'){
       getNewTagName().then(({oldTag})=>{
@@ -43,7 +51,9 @@ const replace=()=>{
           .then(()=>promiseExec(`git tag -a "${oldTag}" -m "updating to ${oldTag}`))
           .then(()=>promiseExec(`git push --follow-tags origin master`))
       })
+      .then(resolve)
+      .catch(reject)
     }
   })
-}
+})
 module.exports.replace=replace
