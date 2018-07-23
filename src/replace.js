@@ -54,6 +54,9 @@ const replace=()=>new Promise((resolve, reject)=>{
       .then(resolve)
       .catch(reject)
     }
+    else{
+      resolve("Cancelled")
+    }
   })
 })
 module.exports.replace=replace

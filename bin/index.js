@@ -19,8 +19,14 @@ else {
         })
     }
     else if(choice==='replace'){
-        replace().then(()=>{
-            console.log("Replacement Complete")
+        replace().then(result=>{
+            if(result==='Cancelled'){
+                console.log("Replacement Cancelled")
+            }
+            else{
+                console.log("Replacement Complete")
+            }
+            
         }).catch(err=>{
             console.log(`Replacement errored with ${err}`)
         }).finally(()=>{
