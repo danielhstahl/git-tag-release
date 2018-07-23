@@ -1,13 +1,12 @@
 const request=require('request')
 const {promisify} = require("es6-promisify");
 const fs=require('fs-extra')
-
 const mkdir=promisify(fs.mkdir)
 const get=promisify(request.get)
-const username = require('git-username').sync()
+const username = require('git-username')()
 const reponame = require('git-repo-name').sync()
 const url=`https://api.github.com/repos/${username}/${reponame}/releases`
-
+module.exports.url=url
 
 const options=url=>({
     url,

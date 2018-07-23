@@ -8,24 +8,24 @@ const rl = readline.createInterface({
 })
 
 const getReleaseId=tagName=>new Promise((resolve, reject)=>{
-  request(`${url}/tags/${tagName}`, (err, val)=>{
+  request(httpOptions(`${url}/tags/${tagName}`), (err, _, body)=>{
     if(err){
       reject(err)
     }
     else{
-      const {id}=JSON.parse(val)
+      const {id}=JSON.parse(body)
       resolve(id)
     }
   })
 })
 
 const deleteRelease=releaseId=>new Promise((resolve, reject)=>{
-  request.del(httpOptions(`${url}/${releaseId}`), (err, val)=>{
+  request.del(httpOptions(`${url}/${releaseId}`), (err, _, body)=>{
     if(err){
       reject(err)
     }
     else{
-      resolve(val)
+      resolve(body)
     }
     
   })

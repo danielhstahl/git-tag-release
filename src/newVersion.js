@@ -1,8 +1,5 @@
-const username = require('git-username').sync()
-const reponame = require('git-repo-name').sync()
-const url=`https://api.github.com/repos/${username}/${reponame}/releases`
+const {url, httpOptions} = require('./mergeHandler')
 
-module.exports.url=url
 const { exec } = require('child_process')
 
 const request=require('request')
@@ -18,12 +15,14 @@ const promiseExec=command=>new Promise((resolve, reject)=>{
     })
 })
 const getNewTagName=()=>new Promise((resolve, reject)=>{
-    request(`${url}/latest`, (err, val)=>{
+    console.log(url)
+    request(httpOptions(`${url}/latest`), (err, _, body)=>{
         if(err){
             reject(err)
         }
         else{
-            const {tag_name}=JSON.parse(val)
+            console.log(body)
+            const {tag_name}=JSON.parse(body)
             const updateTag=tag_name.replace('v', '')+1
             const newTag=`v${updateTag}`
             resolve({newTag, oldTag:tag_name})
