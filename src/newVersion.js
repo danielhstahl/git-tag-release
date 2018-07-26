@@ -1,4 +1,5 @@
 const {getNewTagName} = require('./urlOptions')
+const {promiseExec} =require('./execOptions')
 
 module.exports.updateVersion=()=>getNewTagName().then(({newTag})=>{
     return promiseExec('git add .')
