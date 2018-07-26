@@ -21,15 +21,18 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
         }
         else{
             const v=JSON.parse(body)
+            let newTag
+            let oldTag
             if(v.message==='Not Found'||!v.tag_name){
-                reject(v.message)
+                newTag='v1'
             }
             else {
                 const {tag_name}=v
                 const updateTag=tag_name.replace('v', '')+1
-                const newTag=`v${updateTag}`
-                resolve({newTag, oldTag:tag_name})
+                newTag=`v${updateTag}`
+                oldTag=tag_name
             }
+            resolve({newTag, oldTag})
         }
     })
 })

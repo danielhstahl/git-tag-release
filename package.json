@@ -1,6 +1,6 @@
 {
   "name": "serverless-api-version",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI tool for versioning APIs on AWS Lambda",
   "main": "./bin/index.js",
   "scripts": {
