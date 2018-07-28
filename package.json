@@ -1,5 +1,5 @@
 {
-  "name": "git-tag",
+  "name": "git-tag-release",
   "version": "1.0.4",
   "description": "CLI tool for basic tag and release management for github",
   "main": "./bin/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phillyfan1138/serverless-api-version.git"
+    "url": "git+https://github.com/phillyfan1138/git-tag-release.git"
   },
   "keywords": [
     "serverless"
@@ -16,9 +16,9 @@
   "author": "Daniel Stahl",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/phillyfan1138/serverless-api-version/issues"
+    "url": "https://github.com/phillyfan1138/git-tag-release/issues"
   },
-  "homepage": "https://github.com/phillyfan1138/serverless-api-version#readme",
+  "homepage": "https://github.com/phillyfan1138/git-tag-release#readme",
   "dependencies": {
     "git-repo-name": "^0.6.0",
     "git-username": "^1.0.0",
@@ -26,7 +26,7 @@
     "simple-git": "^1.96.0"
   },
   "bin": {
-    "git-tag": "./bin/index.js"
+    "git-tag-release": "./bin/index.js"
   },
   "preferGlobal": true
 }
