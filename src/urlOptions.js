@@ -36,6 +36,9 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
                 oldTag=tag_name
             }
             console.log(`New tag: ${newTag}, old tag: ${oldTag}`)
+            if(!newTag){
+                reject("Requires new tag to be defined")
+            }
             resolve({newTag, oldTag})
         }
     })
