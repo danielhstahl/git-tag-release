@@ -46,9 +46,12 @@ const chainCommands=tag=>add('.')
         console.log("No remote tag")
     })
     .then(()=>tag(tag))
+    .catch(err=>{
+        console.log(err)
+    })
     .then(()=>pushTags())
-    .catch(_=>{
-        console.log("Everything up to date, nothing pushed")
+    .catch(err=>{
+        console.log(err)
     })
 
 module.exports={
