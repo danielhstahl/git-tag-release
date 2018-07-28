@@ -7,6 +7,10 @@ module.exports.updateVersion=()=>getNewTagName().then(({newTag})=>{
     .catch(_=>{
         console.log("Tag does not exist, creating...")
     })
+    .then(()=>deleteRemoteTag(newTag))
+    .catch(_=>{
+        console.log("No remote tag")
+    })
     .then(()=>tag(newTag))
     .then(pushTags)
 })

@@ -14,6 +14,7 @@ const generic=(command, args)=>new Promise((resolve, reject)=>{
     })
     
     cm.on('close', (code) => {
+        process.stdin.setRawMode(true)
         if(stderr){
             reject(stderr)
         }
