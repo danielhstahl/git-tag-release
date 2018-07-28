@@ -1,6 +1,5 @@
 const readline = require('readline')
 const {getNewTagName, url, httpOptions}=require('./urlOptions')
-//const {promiseExec} =require('./execOptions')
 const request=require('request')
 const rl = readline.createInterface({
   input: process.stdin,
