@@ -1,7 +1,7 @@
 {
-  "name": "serverless-api-version",
+  "name": "git-tag",
   "version": "1.0.4",
-  "description": "CLI tool for versioning APIs on AWS Lambda",
+  "description": "CLI tool for basic tag and release management for github",
   "main": "./bin/index.js",
   "scripts": {
     "test": "npm test"
@@ -20,17 +20,13 @@
   },
   "homepage": "https://github.com/phillyfan1138/serverless-api-version#readme",
   "dependencies": {
-    "es6-promisify": "^6.0.0",
-    "fs-extra": "^7.0.0",
     "git-repo-name": "^0.6.0",
     "git-username": "^1.0.0",
-    "js-yaml": "^3.12.0",
     "request": "^2.87.0",
-    "simple-git": "^1.96.0",
-    "unzip": "^0.1.11"
+    "simple-git": "^1.96.0"
   },
   "bin": {
-    "serverless-api-version": "./bin/index.js"
+    "git-tag": "./bin/index.js"
   },
   "preferGlobal": true
 }

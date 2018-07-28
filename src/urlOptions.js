@@ -1,13 +1,7 @@
 const username = require('git-username')()
 const reponame = require('git-repo-name').sync()
 const request=require('request')
-const readline = require('readline')
 const url=`https://api.github.com/repos/${username}/${reponame}/releases`
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
 
 module.exports.url=url
 const options=url=>({
@@ -33,7 +27,7 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
             }
             else {
                 const {tag_name}=v
-                const updateTag=tag_name.replace('v', '')+1
+                const updateTag=parseInt(tag_name.replace('v', ''), 10)+1
                 newTag=`v${updateTag}`
                 oldTag=tag_name
             }
@@ -42,13 +36,4 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
     })
 })
 
-const getCreds=()=>new Promise((resolve, _)=>{
-    rl.question("Enter Username:", username=>{
-        rl.question("Enter Password:", password=>{
-            resolve({username, password})
-        })
-    })
-})
-
 module.exports.getNewTagName=getNewTagName
-module.exports.getCreds=getCreds

@@ -1,15 +1,16 @@
 const readline = require('readline')
 const {getNewTagName, url, httpOptions}=require('./urlOptions')
-const {promiseExec} =require('./execOptions')
+//const {promiseExec} =require('./execOptions')
 const request=require('request')
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
 
+const git = require('simple-git')()
+
 const getReleaseId=tagName=>new Promise((resolve, reject)=>{
   request(httpOptions(`${url}/tags/${tagName}`), (err, _, body)=>{
-
     if(err){
       reject(err)
     }
@@ -42,14 +43,18 @@ const replace=()=>new Promise((resolve, reject)=>{
   rl.question("This will replace the latest release.  Continue? (Y/N)", answer=>{
     if(answer==='Y'){
       getNewTagName().then(({oldTag})=>{
-        return promiseExec('git add .')
-          .then(()=>promiseExec(`git commit -m "release ${oldTag}`))
-          .then(()=>getReleaseId(oldTag))
-          .then(deleteRelease)
-          .then(()=>promiseExec(`git tag -d ${oldTag}`))
-          .then(()=>promiseExec(`git push --delete origin ${oldTag}`))
-          .then(()=>promiseExec(`git tag -a "${oldTag}" -m "updating to ${oldTag}`))
-          .then(()=>promiseExec(`git push --follow-tags origin master`))
+        let remote
+        return git
+        .getRemotes(true, (err, results)=>{
+          remote=results.find(({name})=>name==='origin').refs.push
+        })
+        .add('.')
+        .commit(`release ${oldTag}`)
+        .exec(()=>getReleaseId(oldTag).then(deleteRelease))
+        .tag(['-d', oldTag])
+        .push(remote, 'origin', ['--delete', oldTag])
+        .tag(['-a', oldTag, '-m', `updating to ${oldTag}`])
+        .pushTags(remote)
       })
       .then(resolve)
       .catch(reject)

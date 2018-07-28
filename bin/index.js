@@ -10,7 +10,7 @@ else {
     let [, , choice]=args
     switch(choice){
         case 'new':
-            getCreds().then(({username, password})=>updateVersion(username, password))
+            updateVersion()
             .then(()=>{
                 console.log("Update Complete")
             }).catch(err=>{
@@ -20,7 +20,7 @@ else {
             })
             break
         case 'replace':
-            getCreds().then(({username, password})=>replace(username, password))
+            replace()
             .then(result=>{
                 if(result==='Cancelled'){
                     console.log("Replacement Cancelled")
