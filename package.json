@@ -22,8 +22,7 @@
   "dependencies": {
     "git-repo-name": "^0.6.0",
     "git-username": "^1.0.0",
-    "request": "^2.87.0",
-    "simple-git": "^1.96.0"
+    "request": "^2.87.0"
   },
   "bin": {
     "git-tag-release": "./bin/index.js"

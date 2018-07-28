@@ -3,6 +3,8 @@ const reponame = require('git-repo-name').sync()
 const request=require('request')
 const url=`https://api.github.com/repos/${username}/${reponame}/releases`
 
+//const repoUrl=`https://github.com/${username}/`
+
 module.exports.url=url
 const options=url=>({
     url,

@@ -1,15 +1,14 @@
 const {getNewTagName} = require('./urlOptions')
-const git = require('simple-git')()
-
+const {add, commit, tag, deleteLocalTag, pushTags}=require('./gitCommands')
 module.exports.updateVersion=()=>getNewTagName().then(({newTag})=>{
-    let remote
-    return git
-    .getRemotes(true, (err, results)=>{
-        remote=results.find(({name})=>name==='origin').refs.push
+    return add('.')
+    .then(()=>commit(`release ${newTag}`))
+    .then(()=>deleteLocalTag(newTag))
+    .catch(_=>{
+        console.log("Tag does not exist, creating...")
     })
-    .add('.')
-    .commit(`release ${newTag}`)
-    .tag(['-d', newTag])
-    .tag(['-a', newTag, '-m', `updating to ${newTag}`])
-    .pushTags(remote)
+    .then(()=>tag(newTag))
+    .then(pushTags)
 })
+
+
