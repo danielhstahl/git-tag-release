@@ -41,11 +41,12 @@ const deleteRelease=releaseId=>new Promise((resolve, reject)=>{
 const replace=()=>new Promise((resolve, reject)=>{
   rl.question("This will replace the latest release.  Continue? (Y/N)", answer=>{
     if(answer==='Y'){
+      let tagToChain
       getNewTagName().then(({oldTag})=>{
-        return getReleaseId(oldTag)
-          .then(deleteRelease)
-          .then(()=>chainCommands(oldTag))
+        tagToChain=oldTag
+        return getReleaseId(oldTag).then(deleteRelease)
       })
+      .then(()=>chainCommands(tagToChain))
       .then(resolve)
       .catch(reject)
     }
