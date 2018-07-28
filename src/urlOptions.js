@@ -25,14 +25,17 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
             let newTag
             let oldTag
             if(v.message==='Not Found'||!v.tag_name){
+                console.log("First time, setting new tag to v1")
                 newTag='v1'
             }
             else {
                 const {tag_name}=v
                 const updateTag=parseInt(tag_name.replace('v', ''), 10)+1
+                console.log("Setting new tag to", updateTag)
                 newTag=`v${updateTag}`
                 oldTag=tag_name
             }
+            console.log(`New tag: ${newTag}, old tag: ${oldTag}`)
             resolve({newTag, oldTag})
         }
     })
