@@ -3,8 +3,6 @@ const reponame = require('git-repo-name').sync()
 const request=require('request')
 const url=`https://api.github.com/repos/${username}/${reponame}/releases`
 
-//const repoUrl=`https://github.com/${username}/`
-
 module.exports.url=url
 const options=url=>({
     url,
@@ -35,10 +33,10 @@ const getNewTagName=()=>new Promise((resolve, reject)=>{
                 newTag=`v${updateTag}`
                 oldTag=tag_name
             }
-            console.log(`New tag: ${newTag}, old tag: ${oldTag}`)
             if(!newTag){
                 reject("Requires new tag to be defined")
             }
+            console.log(`New tag: ${newTag}, old tag: ${oldTag}`)
             resolve({newTag, oldTag})
         }
     })

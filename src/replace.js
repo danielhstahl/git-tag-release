@@ -6,7 +6,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-const {add, commit, tag, deleteLocalTag, pushTags}=require('./gitCommands')
+const {chainCommands}=require('./gitCommands')
 
 const getReleaseId=tagName=>new Promise((resolve, reject)=>{
   request(httpOptions(`${url}/tags/${tagName}`), (err, _, body)=>{
@@ -42,14 +42,9 @@ const replace=()=>new Promise((resolve, reject)=>{
   rl.question("This will replace the latest release.  Continue? (Y/N)", answer=>{
     if(answer==='Y'){
       getNewTagName().then(({oldTag})=>{
-        return add('.')
-          .then(()=>commit(`release ${oldTag}`))
-          .then(()=>getReleaseId(oldTag))
+        return getReleaseId(oldTag)
           .then(deleteRelease)
-          .then(()=>deleteLocalTag(oldTag))
-          .then(()=>deleteRemoteTag(oldTag))
-          .then(()=>tag(oldTag))
-          .then(pushTags)
+          .then(()=>chainCommands(oldTag))
       })
       .then(resolve)
       .catch(reject)
