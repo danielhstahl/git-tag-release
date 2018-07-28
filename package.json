@@ -1,6 +1,6 @@
 {
   "name": "git-tag-release",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "CLI tool for basic tag and release management for github",
   "main": "./bin/index.js",
   "scripts": {
