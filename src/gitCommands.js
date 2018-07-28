@@ -32,20 +32,20 @@ const deleteRemoteTag=(tagName, remote='origin')=>generic('git', ['push', '--del
 const pushTags=(remote='origin', branch='master')=>generic('git', ['push', '--follow-tags', remote, branch])
 
 
-const chainCommands=tag=>add('.')
-    .then(()=>commit(`release ${tag}`))
+const chainCommands=tagName=>add('.')
+    .then(()=>commit(`release ${tagName}`))
     .catch(_=>{
         console.log("Nothing to commit, continuing..")
     })
-    .then(()=>deleteLocalTag(tag))
+    .then(()=>deleteLocalTag(tagName))
     .catch(_=>{
         console.log("Tag does not exist, creating...")
     })
-    .then(()=>deleteRemoteTag(tag))
+    .then(()=>deleteRemoteTag(tagName))
     .catch(_=>{
         console.log("No remote tag")
     })
-    .then(()=>tag(tag))
+    .then(()=>tag(tagName))
     .catch(err=>{
         console.log(err)
     })
