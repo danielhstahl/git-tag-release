@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/phillyfan1138/git-tag-release#readme",
   "dependencies": {
-    "git-repo-name": "^0.6.0",
+    "git-repo-name": "^1.0.1",
     "git-username": "^1.0.0",
-    "request": "^2.87.0"
+    "request": "^2.88.0"
   },
   "bin": {
     "git-tag-release": "./bin/index.js"
